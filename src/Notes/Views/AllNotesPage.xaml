@@ -1,20 +1,27 @@
-<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewModels="clr-namespace:Notes.ViewModels"
              x:Class="Notes.Views.AllNotesPage"
-             Title="Your Notes">
+             Title="Your Notes"
+             Opacity="0.8"
+             NavigatedTo="ContentPage_NavigatedTo"
+             BackgroundColor="AliceBlue">
+    <ContentPage.BindingContext>
+        <viewModels:NotesViewModel />
+    </ContentPage.BindingContext>
+
     <!-- Add an item to the toolbar -->
     <ContentPage.ToolbarItems>
-        <ToolbarItem Text="Add" Clicked="Add_Clicked" IconImageSource="{FontImage Glyph='+', Color=Black, Size=22}" />
+        <ToolbarItem Text="Add" Command="{Binding NewCommand}" IconImageSource="{FontImage Glyph='+', Color=Black, Size=22}" />
     </ContentPage.ToolbarItems>
 
     <!-- Display notes in a list -->
     <CollectionView x:Name="notesCollection"
-                        ItemsSource="{Binding Notes}"
-                        Margin="20"
-                        SelectionMode="Single"
-                        SelectionChanged="notesCollection_SelectionChanged">
-
+                    ItemsSource="{Binding AllNotes}"
+                    Margin="20"
+                    SelectionMode="Single"
+                    SelectionChangedCommand="{Binding SelectNoteCommand}"
+                    SelectionChangedCommandParameter="{Binding Source={RelativeSource Self}, Path=SelectedItem}">
         <!-- Designate how the collection of items are laid out -->
         <CollectionView.ItemsLayout>
             <LinearItemsLayout Orientation="Vertical" ItemSpacing="10" />
