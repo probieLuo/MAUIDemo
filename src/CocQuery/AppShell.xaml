@@ -6,29 +6,27 @@
     xmlns:local="clr-namespace:CocQuery"
     xmlns:views="clr-namespace:CocQuery.Views"
     Shell.FlyoutBehavior="Disabled"
-    Title="CocQuery">
+    xmlns:mi="http://www.aathifmahir.com/dotnet/2022/maui/icons"
+       Shell.NavBarIsVisible="false"
+       Title="CocQuery">
 
     <TabBar>
-
-        <Tab Title="RankPage" >
-            <ShellContent ContentTemplate="{DataTemplate views:RankPage}" />
+        <Tab Icon="{mi:Material Icon=LineAxis}" Title="Rank">
+            <ShellContent Title="Player" ContentTemplate="{DataTemplate views:PlayerRankPage}" />
+            <ShellContent Title="Clan" ContentTemplate="{DataTemplate views:ClanRankPage}" />
         </Tab>
-
-        <!--<ShellContent
-            Title="rank"
-            ContentTemplate="{DataTemplate views:RankPage}" >
-            <Tab>
-                
-            </Tab>
-        </ShellContent>-->
-
-        <!--<ShellContent
-            Title="search"
-            ContentTemplate="{DataTemplate views:SearchPage}"/>
-
-        <ShellContent
-            Title="user"
-            ContentTemplate="{DataTemplate views:UserPage}"/>-->
+        <Tab Icon="{mi:Material Icon=Search}" Title="Search">
+            <ShellContent Title="Player"
+                          ContentTemplate="{DataTemplate views:PlayerSearchPage}" />
+            <ShellContent Title="Clan"
+                          ContentTemplate="{DataTemplate views:ClanSearchPage}" />
+        </Tab>
+        <Tab Icon="{mi:Fluent Icon=Person16}" Title="User">
+            <ShellContent Title="User"
+                          ContentTemplate="{DataTemplate views:UserPage}" />
+            <ShellContent Title="Settings"
+                          ContentTemplate="{DataTemplate views:SettingsPage}" />
+        </Tab>
     </TabBar>
 
 </Shell>

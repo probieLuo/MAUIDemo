@@ -1,4 +1,6 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using MauiIcons.Fluent;
+using MauiIcons.Material;
+using Microsoft.Extensions.Logging;
 
 namespace CocQuery
 {
@@ -18,7 +20,10 @@ namespace CocQuery
 #if DEBUG
     		builder.Logging.AddDebug();
 #endif
-
+            builder
+            .UseMauiApp<App>()
+            .UseFluentMauiIcons()
+            .UseMaterialMauiIcons();
             return builder.Build();
         }
     }

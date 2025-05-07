@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="CocQuery.Views.PlayerSearchPage"
+             xmlns:viewModels="clr-namespace:CocQuery.ViewModels"
+             Title="PlayerSearchPage">
+    <ContentPage.BindingContext>
+        <viewModels:PlayerSearchViewModel/>
+    </ContentPage.BindingContext>
+    <VerticalStackLayout>
+        <SearchBar Placeholder="Search player..."
+                   Text="{Binding SearchText}"
+                   SearchCommand="{Binding SearchCommand}"/>
+        <ListView Margin="20" ItemsSource="{Binding Players}">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ImageCell ImageSource="{Binding Image}"
+                               Text="{Binding Name}"
+                               Detail="{Binding Description}" />
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </VerticalStackLayout>
+</ContentPage>
