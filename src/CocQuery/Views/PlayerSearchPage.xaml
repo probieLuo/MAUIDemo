@@ -2,6 +2,7 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="CocQuery.Views.PlayerSearchPage"
+             xmlns:cocModels="clr-namespace:CocQuery.Models.Coc"
              xmlns:viewModels="clr-namespace:CocQuery.ViewModels"
              Title="PlayerSearchPage">
     <ContentPage.BindingContext>
@@ -11,12 +12,62 @@
         <SearchBar Placeholder="Search player..."
                    Text="{Binding SearchText}"
                    SearchCommand="{Binding SearchCommand}"/>
-        <ListView Margin="20" ItemsSource="{Binding Players}">
+        <ListView Margin="20" ItemsSource="{Binding Players}" VerticalOptions="Center" HasUnevenRows="True" VerticalScrollBarVisibility="Never">
             <ListView.ItemTemplate>
-                <DataTemplate>
-                    <ImageCell ImageSource="{Binding Image}"
-                               Text="{Binding Name}"
-                               Detail="{Binding Description}" />
+                <DataTemplate x:DataType="cocModels:Player">
+                    <ViewCell>
+                        <Grid Margin="10">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto"/>
+                                <RowDefinition Height="auto"/>
+                                <RowDefinition Height="auto"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <Image Source="{Binding League.IconUrls.Medium}"
+                                   WidthRequest="50"
+                                   HeightRequest="50"
+                                   Margin="0,0,10,0"
+                                   Aspect="AspectFill"
+                                   Grid.RowSpan="3"/>
+                            <Label Text="{Binding Name}" Grid.Column="1" FontAttributes="Bold" FontSize="Body"/>
+                            <Label Text="{Binding Tag}" Grid.Column="2" FontSize="Small"/>
+                            <HorizontalStackLayout Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="1" Margin="0,5,0,0">
+                                <Image Source="{Binding Clan.BadgeUrls.Small}"
+                                       WidthRequest="30"
+                                       HeightRequest="30"
+                                       Aspect="AspectFill"
+                                       VerticalOptions="Center"/>
+                                <Label Text="{Binding Clan.Name}" VerticalOptions="Center"/>
+                            </HorizontalStackLayout>
+                            <HorizontalStackLayout Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="2" Margin="0,5,0,0">
+                                <Image Source="town_hall17_5a.webp"
+                                       WidthRequest="30" 
+                                       HeightRequest="30"
+                                       Aspect="AspectFill" VerticalOptions="Center"/>
+                                <Label Text="{Binding TownHallLevel}" VerticalOptions="Center"  Margin="0,0,10,0"/>
+                                <Label Text="{Binding TownHallWeaponLevel}" VerticalOptions="Center"  Margin="0,0,10,0" IsVisible="Collapse"/>
+                                <Image Source="town_hall17_5a.webp"
+                                       WidthRequest="30" 
+                                       HeightRequest="30"
+                                       Aspect="AspectFill" VerticalOptions="Center"/>
+                                <Label Text="{Binding BuilderHallLevel}" VerticalOptions="Center" Margin="0,0,10,0"/>
+                                <Image Source="trophyurl.webp"
+                                       WidthRequest="30" 
+                                       HeightRequest="30"
+                                       Aspect="AspectFill" VerticalOptions="Center"/>
+                                <Label Text="{Binding Trophies}" VerticalOptions="Center" Margin="0,0,10,0"/>
+                                <Image Source="legendtrophyurl.png"
+                                       WidthRequest="30"
+                                       HeightRequest="30"
+                                       Aspect="AspectFill" VerticalOptions="Center"/>
+                                <Label Text="{Binding LegendStatistics.LegendTrophies}" VerticalOptions="Center"/>
+                            </HorizontalStackLayout>
+                        </Grid>
+                    </ViewCell>
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>

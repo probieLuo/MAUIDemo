@@ -6,14 +6,12 @@ using System.Windows.Input;
 
 namespace CocQuery.ViewModels
 {
-    internal class PlayerSearchViewModel:INotifyPropertyChanged
+    internal class PlayerSearchViewModel : INotifyPropertyChanged
     {
         public PlayerSearchViewModel()
         {
-            SearchCommand=new AsyncRelayCommand(Search);
-            _players = new ObservableCollection<Player>();
-            _players.Add(new Player() { Name="probie菜潦",Description= "probie菜潦", Image= "https://api-assets.clashofclans.com/leagues/72/qVCZmeYH0lS7Gaa6YoB7LrNly7bfw7fV_d4Vp2CU-gk.png" });
-            _players.Add(new Player() { Name = "probie菜潦", Description = "probie菜潦", Image = "https://api-assets.clashofclans.com/leagues/72/qVCZmeYH0lS7Gaa6YoB7LrNly7bfw7fV_d4Vp2CU-gk.png" });
+            SearchCommand = new AsyncRelayCommand(Search);
+            _players = new ObservableCollection<Models.Coc.Player>();
         }
 
         private async Task Search(object arg)
@@ -24,11 +22,15 @@ namespace CocQuery.ViewModels
                 Uri = $"players/{_searchText}",
             };
             var player = await client.RequestAsync<Services.Coc.BaseResponseResult<Models.Coc.Player>>(request);
-
+            if (player != null)
+            {
+                Players.Clear();
+                Players.Add(player.Data);
+            }
         }
 
-        private ObservableCollection<Player> _players;
-        public ObservableCollection<Player> Players
+        private ObservableCollection<Models.Coc.Player> _players;
+        public ObservableCollection<Models.Coc.Player> Players
         {
             get
             {
@@ -55,7 +57,7 @@ namespace CocQuery.ViewModels
             }
         }
 
-        public ICommand SearchCommand { get;private set; }
+        public ICommand SearchCommand { get; private set; }
 
         #region INotifyPropertyChanged
         public event PropertyChangedEventHandler? PropertyChanged;
@@ -64,11 +66,5 @@ namespace CocQuery.ViewModels
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
         #endregion
-    }
-    public class Player
-    {
-        public string Name { get; set; }
-        public string Image { get; set; }
-        public string Description { get; set; }
     }
 }
