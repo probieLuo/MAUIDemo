@@ -1,4 +1,5 @@
-﻿using RestSharp;
+﻿using CocQuery.Services.Coc;
+using RestSharp;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Windows.Input;
@@ -17,14 +18,13 @@ namespace CocQuery.ViewModels
 
         private async Task Search(object arg)
         {
-            var options = new RestClientOptions("http://81.68.127.231:8081/")
+            HttpRestClient client = new HttpRestClient();
+            var request = new BaseRequest()
             {
-                MaxTimeout = -1,
+                Uri = $"players/{_searchText}",
             };
-            var client = new RestClient(options);
-            var request = new RestRequest("Players/%23GY00YLLQV", Method.Get);
-            RestResponse response = await client.ExecuteAsync(request);
-            Console.WriteLine(response.Content);
+            var player = await client.RequestAsync<Services.Coc.BaseResponseResult<Models.Coc.Player>>(request);
+
         }
 
         private ObservableCollection<Player> _players;

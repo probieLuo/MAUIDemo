@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CocQuery.Services.Coc
 {
-    internal class ClansService
+    public class ClansService
     {
         public ClansService() 
         {

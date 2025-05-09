@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CocQuery.Services.Coc
 {
-    internal class PlayersService
+    public class PlayersService
     {
     }
 }

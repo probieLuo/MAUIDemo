@@ -60,11 +60,19 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <AndroidResource Remove="Platforms\Android\Resources\xml\network_security_config.xml" />
+	</ItemGroup>
+
+	<ItemGroup>
 		<PackageReference Include="AathifMahir.Maui.MauiIcons.Fluent" Version="4.0.0" />
 		<PackageReference Include="AathifMahir.Maui.MauiIcons.Material" Version="4.0.0" />
 		<PackageReference Include="Microsoft.Maui.Controls" Version="$(MauiVersion)" />
 		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="9.0.4" />
 		<PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+		<PackageReference Include="QueryStringGenerator" Version="1.2.0">
+		  <PrivateAssets>all</PrivateAssets>
+		  <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
 		<PackageReference Include="RestSharp" Version="112.1.0" />
 	</ItemGroup>
 
