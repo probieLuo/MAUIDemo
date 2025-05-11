@@ -16,16 +16,19 @@ namespace CocQuery.ViewModels
 
         private async Task Search(object arg)
         {
-            HttpRestClient client = new HttpRestClient();
-            var request = new BaseRequest()
+            if (_searchText.StartsWith("#"))
             {
-                Uri = $"players/{_searchText}",
-            };
-            var player = await client.RequestAsync<Services.Coc.BaseResponseResult<Models.Coc.Player>>(request);
-            if (player != null)
-            {
-                Players.Clear();
-                Players.Add(player.Data);
+                HttpRestClient client = new HttpRestClient();
+                var request = new BaseRequest()
+                {
+                    Uri = $"players/{_searchText}",
+                };
+                var player = await client.RequestAsync<Services.Coc.BaseResponseResult<Models.Coc.Player>>(request);
+                if (player.Data != null)
+                {
+                    Players.Clear();
+                    Players.Add(player.Data);
+                }
             }
         }
 

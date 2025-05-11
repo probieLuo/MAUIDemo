@@ -7,8 +7,8 @@
     xmlns:views="clr-namespace:CocQuery.Views"
     Shell.FlyoutBehavior="Disabled"
     xmlns:mi="http://www.aathifmahir.com/dotnet/2022/maui/icons"
-       Shell.NavBarIsVisible="false"
-       Title="CocQuery">
+    Shell.NavBarIsVisible="false"
+    Title="CocQuery">
 
     <TabBar>
         <Tab Icon="{mi:Material Icon=LineAxis}" Title="Rank">
@@ -16,13 +16,13 @@
             <ShellContent Title="Clan" ContentTemplate="{DataTemplate views:ClanRankPage}" />
         </Tab>
         <Tab Icon="{mi:Material Icon=Search}" Title="Search">
-            <ShellContent Title="Player"
+            <ShellContent Title="Player" Icon="{mi:Material Icon=Usb}"
                           ContentTemplate="{DataTemplate views:PlayerSearchPage}" />
             <ShellContent Title="Clan"
                           ContentTemplate="{DataTemplate views:ClanSearchPage}" />
         </Tab>
         <Tab Icon="{mi:Fluent Icon=Person16}" Title="User">
-            <ShellContent Title="User"
+            <ShellContent Title="User" 
                           ContentTemplate="{DataTemplate views:UserPage}" />
             <ShellContent Title="Settings"
                           ContentTemplate="{DataTemplate views:SettingsPage}" />

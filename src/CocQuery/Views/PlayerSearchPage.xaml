@@ -4,10 +4,17 @@
              x:Class="CocQuery.Views.PlayerSearchPage"
              xmlns:cocModels="clr-namespace:CocQuery.Models.Coc"
              xmlns:viewModels="clr-namespace:CocQuery.ViewModels"
+             xmlns:converters="clr-namespace:CocQuery.Common.Converters"
+             Opacity="0.9"
              Title="PlayerSearchPage">
     <ContentPage.BindingContext>
         <viewModels:PlayerSearchViewModel/>
     </ContentPage.BindingContext>
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converters:TownHallImageMultiConverter x:Key="townHallImageMultiConverter"/>
+        </ResourceDictionary>
+    </ContentPage.Resources>
     <VerticalStackLayout>
         <SearchBar Placeholder="Search player..."
                    Text="{Binding SearchText}"
@@ -44,16 +51,32 @@
                                 <Label Text="{Binding Clan.Name}" VerticalOptions="Center"/>
                             </HorizontalStackLayout>
                             <HorizontalStackLayout Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="2" Margin="0,5,0,0">
-                                <Image Source="town_hall17_5a.webp"
+                                <!--<Image Source="town_hall17_5a.webp"
                                        WidthRequest="30" 
                                        HeightRequest="30"
-                                       Aspect="AspectFill" VerticalOptions="Center"/>
-                                <Label Text="{Binding TownHallLevel}" VerticalOptions="Center"  Margin="0,0,10,0"/>
-                                <Label Text="{Binding TownHallWeaponLevel}" VerticalOptions="Center"  Margin="0,0,10,0" IsVisible="Collapse"/>
-                                <Image Source="town_hall17_5a.webp"
+                                       Aspect="AspectFill" VerticalOptions="Center"/>-->
+                                <Image WidthRequest="30"  HeightRequest="30" Aspect="AspectFill"  VerticalOptions="Center">
+                                    <Image.Source>
+                                        <MultiBinding Converter="{StaticResource townHallImageMultiConverter}">
+                                            <Binding Path="TownHallLevel"/>
+                                            <Binding Path="TownHallWeaponLevel"/>
+                                        </MultiBinding>
+                                    </Image.Source>
+                                </Image>
+                                <Label x:Name="TownHallLevel" Text="{Binding TownHallLevel}" VerticalOptions="Center"  Margin="0,0,10,0"/>
+                                <Label x:Name="TownHallWeaponLevel" Text="{Binding TownHallWeaponLevel}" VerticalOptions="Center"  Margin="0,0,10,0" IsVisible="Collapse"/>
+                                <!--<Image Source="town_hall17_5a.webp"
                                        WidthRequest="30" 
                                        HeightRequest="30"
-                                       Aspect="AspectFill" VerticalOptions="Center"/>
+                                       Aspect="AspectFill" VerticalOptions="Center"/>-->
+                                <Image WidthRequest="30"  HeightRequest="30" Aspect="AspectFill"  VerticalOptions="Center">
+                                    <Image.Source>
+                                        <MultiBinding Converter="{StaticResource townHallImageMultiConverter}">
+                                            <Binding Path="TownHallLevel"/>
+                                            <Binding Path="TownHallWeaponLevel"/>
+                                        </MultiBinding>
+                                    </Image.Source>
+                                </Image>
                                 <Label Text="{Binding BuilderHallLevel}" VerticalOptions="Center" Margin="0,0,10,0"/>
                                 <Image Source="trophyurl.webp"
                                        WidthRequest="30" 

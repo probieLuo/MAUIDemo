@@ -157,9 +157,10 @@ namespace CocQuery.Services.Coc
         #region QUERY_CLANS
         private static readonly Regex _labelIdsRegex = new Regex(@"^\d+(,\d+)*$");
 
+        private QueryClans? _queryClans;
         public QueryClans? QueryClans
         {
-            get => (QueryClans?)_query;
+            get => _queryClans;
 
             set
             {
@@ -172,7 +173,7 @@ namespace CocQuery.Services.Coc
                 if (value.LabelIds != null && !_labelIdsRegex.IsMatch(value.LabelIds))
                     throw new ArgumentException($"Invalid format for parameter {nameof(QueryClans.LabelIds)}");
 
-                Query = value;
+                _queryClans = value;
             }
         }
         #endregion

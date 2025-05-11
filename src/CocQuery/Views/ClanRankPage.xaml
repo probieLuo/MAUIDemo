@@ -2,12 +2,67 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="CocQuery.Views.ClanRankPage"
+             xmlns:cocModels="clr-namespace:CocQuery.Models.Coc"
+             xmlns:viewModels="clr-namespace:CocQuery.ViewModels"
+             xmlns:mi="http://www.aathifmahir.com/dotnet/2022/maui/icons"
              Title="ClanRankPage">
-    <VerticalStackLayout>
+    <ContentPage.BindingContext>
+        <viewModels:ClanRankViewModel/>
+    </ContentPage.BindingContext>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <ActivityIndicator x:Name="activityIndicator"
+                      IsRunning="{Binding ActivityIndicatorIsRunning}"
+                      IsVisible="{Binding ActivityIndicatorIsVisible}"
+                      Color="Gray"
+                      HorizontalOptions="Center"
+                      VerticalOptions="Center" />
         
-        <Label 
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-    </VerticalStackLayout>
+        <ListView IsVisible="True" Grid.Row="2" Margin="20" ItemsSource="{Binding Clans}" VerticalOptions="FillAndExpand" HasUnevenRows= "True" VerticalScrollBarVisibility="Never">
+            <ListView.ItemTemplate>
+                <DataTemplate x:DataType="cocModels:Clan">
+                    <ViewCell>
+                        <Grid Margin="10">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto"/>
+                                <RowDefinition Height="auto"/>
+                                <RowDefinition Height="auto"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <Image Source="{Binding BadgeUrls.Large}"
+                   WidthRequest="50"
+                   HeightRequest="50"
+                   Margin="0,0,10,0"
+                   Aspect="AspectFill"
+                   Grid.RowSpan="3"/>
+                            <HorizontalStackLayout Grid.Column="1">
+                                <Label Text="{Binding Name}" FontAttributes="Bold" FontSize="Body" Margin="0,0,10,0"/>
+                                <Label Text="{Binding WarLeague.Name}" FontAttributes="Italic" FontSize="Small" VerticalOptions="Center" Margin="0,0,10,0"/>
+                            </HorizontalStackLayout>
+                            <Label Text="{Binding Tag}" Grid.Column="2" FontSize="Small"/>
+                            <HorizontalStackLayout Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="1" Margin="0,5,0,0">
+                                <Label Text="所需大本营等级:"/>
+                                <Label Text="{Binding RequiredTownhallLevel}" VerticalOptions="Center" Margin="0,0,5,0"/>
+                                <Label Text="所需奖杯:"/>
+                                <Label Text="{Binding RequiredTrophies}" VerticalOptions="Center" Margin="0,0,5,0"/>
+                            </HorizontalStackLayout>
+                            <HorizontalStackLayout Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="2" Margin="0,5,0,0">
+                                <Label Text="成员数:"/>
+                                <Label Text="{Binding Members}" VerticalOptions="Center" Margin="0,0,5,0"/>
+                                <Label Text="部落等级:"/>
+                                <Label Text="{Binding ClanLevel}" VerticalOptions="Center" Margin="0,0,5,0"/>
+                            </HorizontalStackLayout>
+                        </Grid>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </Grid>
 </ContentPage>

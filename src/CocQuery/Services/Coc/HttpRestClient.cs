@@ -13,13 +13,20 @@ namespace CocQuery.Services.Coc
             client = new RestClient(address);
             client.AddDefaultHeader("ContentType", "application/json");
         }
-        public async Task<QueryResult<T>> QueryAsync<T>(BaseRequest request) where T : class
+        public async Task<T> QueryAsync<T>(BaseRequest request) where T : class
         {
             request.Uri = request.Uri + request.Query?.ToString();
             var data = await GetDataAsync(request);
-            var deserializedData = JsonConvert.DeserializeObject<QueryResult<T>>(data);
+            T deserializedData = JsonConvert.DeserializeObject<T>(data);
 
-            request.Query?.SetCursors(deserializedData.Paging.Cursors);
+            return deserializedData;
+        }
+
+        public async Task<T> QueryClansAsync<T>(BaseRequest request) where T : class
+        {
+            request.Uri = request.Uri + request.QueryClans?.ToString();
+            var data = await GetDataAsync(request);
+            T deserializedData = JsonConvert.DeserializeObject<T>(data);
 
             return deserializedData;
         }
