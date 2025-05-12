@@ -7,57 +7,91 @@
              xmlns:mi="http://www.aathifmahir.com/dotnet/2022/maui/icons"
              Title="ClanRankPage">
     <ContentPage.BindingContext>
-        <viewModels:ClanRankViewModel/>
+        <viewModels:ClanRankViewModel />
     </ContentPage.BindingContext>
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         <ActivityIndicator x:Name="activityIndicator"
-                      IsRunning="{Binding ActivityIndicatorIsRunning}"
-                      IsVisible="{Binding ActivityIndicatorIsVisible}"
-                      Color="Gray"
-                      HorizontalOptions="Center"
-                      VerticalOptions="Center" />
-        
-        <ListView IsVisible="True" Grid.Row="2" Margin="20" ItemsSource="{Binding Clans}" VerticalOptions="FillAndExpand" HasUnevenRows= "True" VerticalScrollBarVisibility="Never">
+                           IsRunning="{Binding ActivityIndicatorIsRunning}"
+                           IsVisible="{Binding ActivityIndicatorIsVisible,FallbackValue=False}"
+                           Color="Gray"
+                           HorizontalOptions="Center"
+                           VerticalOptions="Center" />
+        <Picker Title="部落位置"
+                HorizontalOptions="Center"
+                ItemsSource="{Binding Locations}"
+                SelectedItem="{Binding SelectedLocation}"
+                ItemDisplayBinding="{Binding DisplayName}" />
+
+        <ListView IsVisible="True"
+                  Grid.Row="1"
+                  Margin="20"
+                  ItemsSource="{Binding Clans}"
+                  VerticalOptions="FillAndExpand"
+                  HasUnevenRows="True"
+                  VerticalScrollBarVisibility="Never">
             <ListView.ItemTemplate>
                 <DataTemplate x:DataType="cocModels:Clan">
                     <ViewCell>
                         <Grid Margin="10">
                             <Grid.RowDefinitions>
-                                <RowDefinition Height="auto"/>
-                                <RowDefinition Height="auto"/>
-                                <RowDefinition Height="auto"/>
+                                <RowDefinition Height="auto" />
+                                <RowDefinition Height="auto" />
+                                <RowDefinition Height="auto" />
                             </Grid.RowDefinitions>
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="Auto"/>
-                                <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
                             </Grid.ColumnDefinitions>
                             <Image Source="{Binding BadgeUrls.Large}"
-                   WidthRequest="50"
-                   HeightRequest="50"
-                   Margin="0,0,10,0"
-                   Aspect="AspectFill"
-                   Grid.RowSpan="3"/>
+                                   WidthRequest="50"
+                                   HeightRequest="50"
+                                   Margin="0,0,10,0"
+                                   Aspect="AspectFill"
+                                   Grid.RowSpan="3" />
                             <HorizontalStackLayout Grid.Column="1">
-                                <Label Text="{Binding Name}" FontAttributes="Bold" FontSize="Body" Margin="0,0,10,0"/>
-                                <Label Text="{Binding WarLeague.Name}" FontAttributes="Italic" FontSize="Small" VerticalOptions="Center" Margin="0,0,10,0"/>
+                                <Label Text="{Binding Name}"
+                                       FontAttributes="Bold"
+                                       FontSize="Body"
+                                       Margin="0,0,10,0" />
+                                <Label Text="{Binding WarLeague.Name}"
+                                       FontAttributes="Italic"
+                                       FontSize="Small"
+                                       VerticalOptions="Center"
+                                       Margin="0,0,10,0" />
                             </HorizontalStackLayout>
-                            <Label Text="{Binding Tag}" Grid.Column="2" FontSize="Small"/>
-                            <HorizontalStackLayout Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="1" Margin="0,5,0,0">
-                                <Label Text="所需大本营等级:"/>
-                                <Label Text="{Binding RequiredTownhallLevel}" VerticalOptions="Center" Margin="0,0,5,0"/>
-                                <Label Text="所需奖杯:"/>
-                                <Label Text="{Binding RequiredTrophies}" VerticalOptions="Center" Margin="0,0,5,0"/>
+                            <Label Text="{Binding Tag}"
+                                   Grid.Column="2"
+                                   FontSize="Small" />
+                            <HorizontalStackLayout Grid.Column="1"
+                                                   Grid.ColumnSpan="2"
+                                                   Grid.Row="1"
+                                                   Margin="0,5,0,0">
+                                <Label Text="所需大本营等级:" />
+                                <Label Text="{Binding RequiredTownhallLevel}"
+                                       VerticalOptions="Center"
+                                       Margin="0,0,5,0" />
+                                <Label Text="所需奖杯:" />
+                                <Label Text="{Binding RequiredTrophies}"
+                                       VerticalOptions="Center"
+                                       Margin="0,0,5,0" />
                             </HorizontalStackLayout>
-                            <HorizontalStackLayout Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="2" Margin="0,5,0,0">
-                                <Label Text="成员数:"/>
-                                <Label Text="{Binding Members}" VerticalOptions="Center" Margin="0,0,5,0"/>
-                                <Label Text="部落等级:"/>
-                                <Label Text="{Binding ClanLevel}" VerticalOptions="Center" Margin="0,0,5,0"/>
+                            <HorizontalStackLayout Grid.Column="1"
+                                                   Grid.ColumnSpan="2"
+                                                   Grid.Row="2"
+                                                   Margin="0,5,0,0">
+                                <Label Text="成员数:" />
+                                <Label Text="{Binding Members}"
+                                       VerticalOptions="Center"
+                                       Margin="0,0,5,0" />
+                                <Label Text="部落等级:" />
+                                <Label Text="{Binding ClanLevel}"
+                                       VerticalOptions="Center"
+                                       Margin="0,0,5,0" />
                             </HorizontalStackLayout>
                         </Grid>
                     </ViewCell>

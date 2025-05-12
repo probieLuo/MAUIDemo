@@ -13,6 +13,7 @@
     <ContentPage.Resources>
         <ResourceDictionary>
             <converters:TownHallImageMultiConverter x:Key="townHallImageMultiConverter"/>
+            <converters:PlayerLeagueIconUrlsNullToDefaultImageConverter x:Key="playerLeagueIconUrlsNullToDefaultImageConverter" />
         </ResourceDictionary>
     </ContentPage.Resources>
     <VerticalStackLayout>
@@ -34,7 +35,7 @@
                                 <ColumnDefinition Width="*"/>
                                 <ColumnDefinition Width="Auto"/>
                             </Grid.ColumnDefinitions>
-                            <Image Source="{Binding League.IconUrls.Medium}"
+                            <Image Source="{Binding League.IconUrls.Medium,FallbackValue=unranked.png,Converter={StaticResource playerLeagueIconUrlsNullToDefaultImageConverter}}"
                                    WidthRequest="50"
                                    HeightRequest="50"
                                    Margin="0,0,10,0"

@@ -4,9 +4,19 @@
              x:Class="CocQuery.Views.UserPage"
              Title="UserPage">
     <VerticalStackLayout>
-        <Label 
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
+        <Label Text="收藏的部落"
+               Margin="5"
+               VerticalOptions="Center"
+               HorizontalOptions="Start" />
+        <ListView HeightRequest="200">
+            
+        </ListView>
+        <Label Text="收藏的玩家"
+               Margin="5"
+               VerticalOptions="Center"
+               HorizontalOptions="Start" />
+        <ListView HeightRequest="200">
+
+        </ListView>
     </VerticalStackLayout>
 </ContentPage>

@@ -195,6 +195,9 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <MauiXaml Update="Views\ClanDetailPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Views\ClanRankPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>

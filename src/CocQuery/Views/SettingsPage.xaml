@@ -6,7 +6,10 @@
     <VerticalStackLayout>
         
         <Label 
-            Text="Welcome to .NET MAUI!"
+            Text="账号设置"
+            Margin="5"
+            FontSize="Header"
+            FontAttributes="Bold"
             VerticalOptions="Center" 
             HorizontalOptions="Center" />
     </VerticalStackLayout>

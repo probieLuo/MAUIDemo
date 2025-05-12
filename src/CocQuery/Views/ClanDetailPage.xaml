@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="CocQuery.Views.ClanDetailPage"
+             xmlns:cocModels="clr-namespace:CocQuery.Models.Coc"
+             Title="部落详情">
+    <ScrollView>
+        <Grid Margin="20">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <VerticalStackLayout>
+                <Image Source="{Binding Clan.BadgeUrls.Large}"
+                       WidthRequest="100"
+                       HeightRequest="100"
+                       Margin="0,0,10,0"
+                       Aspect="AspectFill" />
+
+                <Border Padding="10">
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="10,10,10,10" />
+                    </Border.StrokeShape>
+
+                    <VerticalStackLayout>
+                        <Label Text="{Binding Clan.Name}"
+                               HorizontalOptions="Center"
+                               FontAttributes="Bold"
+                               FontSize="Body"
+                               Margin="0,0,0,10" />
+                        <HorizontalStackLayout HorizontalOptions="Center">
+                            <Label Text="Tag标签:" />
+                            <Label VerticalOptions="Center"
+                                   Text="{Binding Clan.Tag}"
+                                   FontSize="Small" />
+                        </HorizontalStackLayout>
+                    </VerticalStackLayout>
+                </Border>
+                <Border Margin="0,10,0,0" Padding="10">
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="10,10,10,10" />
+                    </Border.StrokeShape>
+
+                    <VerticalStackLayout>
+                        <Label Text="部落简介:"
+                               FontAttributes="Bold"
+                               HorizontalOptions="Start" />
+                        <Label Margin="0,10,0,0"
+                               Text="{Binding Clan.Description}"
+                               FontSize="Small"
+                               FontAttributes="Italic" />
+                    </VerticalStackLayout>
+                </Border>
+                <HorizontalStackLayout Margin="0,10,0,0">
+                    <Label Text="联赛段位:" />
+                    <Label Text="{Binding Clan.WarLeague.Name}"
+                           FontAttributes="Italic"
+                           FontSize="Small"
+                           VerticalOptions="Center"
+                           Margin="0,0,0,0" />
+                </HorizontalStackLayout>
+
+                <HorizontalStackLayout Margin="0,10,0,0">
+                    <Label Text="所需大本营等级:" />
+                    <Label Text="{Binding Clan.RequiredTownhallLevel}"
+                           VerticalOptions="Center"
+                           Margin="0,0,5,0" />
+                    <Label Text="所需奖杯:" />
+                    <Label Text="{Binding Clan.RequiredTrophies}"
+                           VerticalOptions="Center"
+                           Margin="0,0,5,0" />
+                </HorizontalStackLayout>
+                <HorizontalStackLayout Margin="0,10,0,0">
+                    <Label Text="成员数:" />
+                    <Label Text="{Binding Clan.Members}"
+                           VerticalOptions="Center"
+                           Margin="0,0,5,0" />
+                    <Label Text="部落等级:" />
+                    <Label Text="{Binding Clan.ClanLevel}"
+                           VerticalOptions="Center"
+                           Margin="0,0,5,0" />
+                </HorizontalStackLayout>
+                <HorizontalStackLayout Margin="0,10,0,0">
+                    <Label VerticalOptions="Center" Text="部落标签:" />
+                    <Image Source="{Binding Clan.Labels[0].IconUrls.Medium}"
+                           WidthRequest="30"
+                           HeightRequest="30"
+                           Margin="10,0,0,0" />
+                    <Image Source="{Binding Clan.Labels[1].IconUrls.Medium}"
+                           WidthRequest="30"
+                           HeightRequest="30"
+                           Margin="10,0,0,0" />
+                    <Image Source="{Binding Clan.Labels[2].IconUrls.Medium}"
+                           WidthRequest="30"
+                           HeightRequest="30"
+                           Margin="10,0,0,0" />
+                </HorizontalStackLayout>
+                
+            </VerticalStackLayout>
+            <Label Text="成员列表"
+                   Grid.Row="1"
+                   FontSize="Body"
+                   FontAttributes="Bold"
+                   HorizontalOptions="Center"
+                   Margin="0,20,0,10" />
+            <ListView Grid.Row="2"
+                      HeightRequest="200"
+                      ItemsSource="{Binding Clan.MemberList}">
+                <ListView.ItemTemplate>
+                    <DataTemplate x:DataType="cocModels:ClanMember">
+                        <ViewCell>
+                            <HorizontalStackLayout>
+                                <Label Text="{Binding ClanRank}"
+                                       VerticalOptions="Center" />
+                                <Label Text="{Binding Name}"
+                                       Margin="10,0,0,0"
+                                       VerticalOptions="Center" />
+                                <Label Text="{Binding Role}"
+                                       Margin="10,0,0,0"
+                                       VerticalOptions="Center" />
+                                <Label Text="{Binding Tag}"
+                                       VerticalOptions="Center"
+                                       Margin="10,0,0,0" />
+                            </HorizontalStackLayout>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </Grid>
+    </ScrollView>
+</ContentPage>

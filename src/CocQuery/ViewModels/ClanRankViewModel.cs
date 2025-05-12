@@ -12,6 +12,15 @@ namespace CocQuery.ViewModels
             _clans = new ObservableCollection<Models.Coc.Clan>();
 
             Search(new object());
+
+            Locations = new ObservableCollection<Location>()
+            {
+                new Location { DisplayName = "全球范围", Value = "32000006" },
+                new Location { DisplayName = "中国", Value = "32000056" },
+                new Location { DisplayName = "欧洲", Value = "32000000" },
+                new Location { DisplayName = "亚洲", Value = "32000003" }
+
+            };
         }
         private async Task Search(object arg)
         {
@@ -72,7 +81,33 @@ namespace CocQuery.ViewModels
                 OnPropertyChanged(nameof(ActivityIndicatorIsVisible));
             }
         }
+        #region 部落位置
+        private ObservableCollection<Location> _locations;
+        public ObservableCollection<Location> Locations
+        {
+            get { return _locations; }
+            set
+            {
+                _locations = value;
+                OnPropertyChanged(nameof(Locations));
+            }
+        }
 
+
+        private Location _selectedLocation;
+        public Location SelectedLocation
+        {
+            get => _selectedLocation;
+            set
+            {
+                if (_selectedLocation != value)
+                {
+                    _selectedLocation = value;
+                    OnPropertyChanged(nameof(SelectedLocation));
+                }
+            }
+        }
+        #endregion
         public ICommand SearchCommand { get; private set; }
 
         #region INotifyPropertyChanged

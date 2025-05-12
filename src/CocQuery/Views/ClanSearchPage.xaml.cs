@@ -1,3 +1,5 @@
+using CocQuery.ViewModels;
+
 namespace CocQuery.Views;
 
 public partial class ClanSearchPage : ContentPage
@@ -7,18 +9,16 @@ public partial class ClanSearchPage : ContentPage
         InitializeComponent();
     }
 
-    private async void Button_Clicked(object sender, EventArgs e)
+    private async void OnItemTapped(object sender, ItemTappedEventArgs e)
     {
-        // 显示加载动画
-        activityIndicator.IsRunning = true;
-        activityIndicator.IsVisible = true;
-
-        // 模拟耗时操作
-        await Task.Delay(3000); // 模拟耗时操作，例如网络请求
-
-        // 隐藏加载动画
-        activityIndicator.IsRunning = false;
-        activityIndicator.IsVisible = false;
-
+        if (e.Item is Models.Coc.Clan clan && BindingContext is ClanSearchViewModel viewModel)
+        {
+            await viewModel.OnItemClicked(clan);
+            //if (clan != null)
+            //{
+            //    // 跳转到详细页面
+            //    await Application.Current.MainPage.Navigation.PushAsync(new Views.ClanDetailPage(clan));
+            //}
+        }
     }
 }
