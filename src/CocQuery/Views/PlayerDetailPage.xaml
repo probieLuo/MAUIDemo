@@ -1,0 +1,257 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="CocQuery.Views.PlayerDetailPage"
+             xmlns:cocModels="clr-namespace:CocQuery.Models.Coc"
+             Title="玩家详情">
+    <ScrollView>
+        <VerticalStackLayout Margin="20">
+            <ActivityIndicator IsVisible="{Binding ActivityIndicatorIsVisible}"
+                               IsRunning="{Binding ActivityIndicatorIsRunning}"
+                               VerticalOptions="Center"
+                               HorizontalOptions="Center" />
+            <VerticalStackLayout>
+                <Image Source="{Binding Player.League.IconUrls.Medium,FallbackValue=unranked.png}"
+                       WidthRequest="100"
+                       HeightRequest="100"
+                       Margin="0,0,10,0"
+                       Aspect="AspectFill" />
+
+                <Border Padding="10">
+                    <Border.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped_1" />
+                    </Border.GestureRecognizers>
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="10,10,10,10" />
+                    </Border.StrokeShape>
+
+                    <VerticalStackLayout>
+                        <Label Text="{Binding Player.Name}"
+                               HorizontalOptions="Center"
+                               FontAttributes="Bold"
+                               FontSize="Body"
+                               Margin="0,0,0,10" />
+                        <HorizontalStackLayout HorizontalOptions="Center">
+                            <Label Text="Tag标签:" />
+                            <Label VerticalOptions="Center"
+                                   x:Name="PlayTag"
+                                   Text="{Binding Player.Tag}"
+                                   FontSize="Small" />
+                        </HorizontalStackLayout>
+                    </VerticalStackLayout>
+                </Border>
+                <Border Padding="10"
+                        Margin="0,10,0,0">
+                    <Border.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped" />
+                    </Border.GestureRecognizers>
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="10,10,10,10" />
+                    </Border.StrokeShape>
+
+                    <VerticalStackLayout>
+                        <Label Text="{Binding Player.Clan.Name}"
+                               HorizontalOptions="Start"
+                               VerticalOptions="Center"
+                               FontAttributes="Bold"
+                               FontSize="Body"
+                               Margin="0,0,0,10" />
+                        <HorizontalStackLayout HorizontalOptions="Start">
+                            <Label Text="部落Tag标签:"
+                                   VerticalOptions="Center" />
+                            <Label VerticalOptions="Center"
+                                   Text="{Binding Player.Clan.Tag}"
+                                   FontSize="Small" />
+                        </HorizontalStackLayout>
+                    </VerticalStackLayout>
+                </Border>
+                <Border Margin="0,10,0,0"
+                        Padding="10">
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="10,10,10,10" />
+                    </Border.StrokeShape>
+
+                    <VerticalStackLayout>
+                        <Label Text="玩家最佳:"
+                               VerticalOptions="Center"
+                               FontAttributes="Bold"
+                               HorizontalOptions="Start" />
+                        <HorizontalStackLayout Margin="0,10,0,0">
+                            <Label Text="最高奖杯:"
+                                   VerticalOptions="End" />
+                            <Label Margin="0,10,0,0"
+                                   Text="{Binding Player.BestTrophies}"
+                                   FontAttributes="Italic" />
+                        </HorizontalStackLayout>
+                        <HorizontalStackLayout Margin="0,10,0,0">
+                            <Label Text="夜世界最高奖杯:"
+                                   VerticalOptions="End" />
+                            <Label Margin="0,10,0,0"
+                                   Text="{Binding Player.BestBuilderBaseTrophies}"
+                                   FontAttributes="Italic" />
+                        </HorizontalStackLayout>
+                        <HorizontalStackLayout Margin="0,10,0,0">
+                            <Label Text="进攻胜场:"
+                                   VerticalOptions="End" />
+                            <Label Margin="0,10,0,0"
+                                   Text="{Binding Player.AttackWins}"
+                                   FontAttributes="Italic" />
+                        </HorizontalStackLayout>
+                        <HorizontalStackLayout Margin="0,10,0,0">
+                            <Label Text="防御胜场:"
+                                   VerticalOptions="End" />
+                            <Label Margin="0,10,0,0"
+                                   Text="{Binding Player.DefenseWins}"
+                                   FontAttributes="Italic" />
+                        </HorizontalStackLayout>
+                        <HorizontalStackLayout Margin="0,10,0,0">
+                            <Label Text="部落战星星:"
+                                   VerticalOptions="End" />
+                            <Label Margin="0,10,0,0"
+                                   Text="{Binding Player.WarStars}"
+                                   FontAttributes="Italic" />
+                        </HorizontalStackLayout>
+                    </VerticalStackLayout>
+                </Border>
+                <HorizontalStackLayout Margin="0,10,0,0">
+                    <Label Text="联赛段位:" />
+                    <Label Text="{Binding Player.League.Name}"
+                           FontAttributes="Italic"
+                           FontSize="Small"
+                           VerticalOptions="Center"
+                           Margin="0,0,0,0" />
+                </HorizontalStackLayout>
+
+                <HorizontalStackLayout Margin="0,10,0,0">
+                    <Label Text="大本营等级:" />
+                    <Label Text="{Binding Player.TownHallLevel}"
+                           VerticalOptions="Center"
+                           Margin="0,0,5,0" />
+                    <Label Text="奖杯:" />
+                    <Label Text="{Binding Player.Trophies}"
+                           VerticalOptions="Center"
+                           Margin="0,0,5,0" />
+                </HorizontalStackLayout>
+                <HorizontalStackLayout Margin="0,10,0,0">
+                    <Label Text="等级:" />
+                    <Label Text="{Binding Player.ExpLevel}"
+                           VerticalOptions="Center"
+                           Margin="0,0,5,0" />
+                </HorizontalStackLayout>
+                <HorizontalStackLayout Margin="0,10,0,0">
+                    <Label Text="都城贡献:" />
+                    <Label Text="{Binding Player.ClanCapitalContributions}"
+                           VerticalOptions="Center"
+                           Margin="0,0,5,0" />
+                </HorizontalStackLayout>
+                <HorizontalStackLayout Margin="0,10,0,0">
+                    <Label VerticalOptions="Center"
+                           Text="玩家标签:" />
+                    <Image Source="{Binding Player.Labels[0].IconUrls.Medium}"
+                           WidthRequest="30"
+                           HeightRequest="30"
+                           Margin="10,0,0,0" />
+                    <Image Source="{Binding Player.Labels[1].IconUrls.Medium}"
+                           WidthRequest="30"
+                           HeightRequest="30"
+                           Margin="10,0,0,0" />
+                    <Image Source="{Binding Player.Labels[2].IconUrls.Medium}"
+                           WidthRequest="30"
+                           HeightRequest="30"
+                           Margin="10,0,0,0" />
+                </HorizontalStackLayout>
+
+            </VerticalStackLayout>
+
+
+            <Label Text="英雄:"
+                   FontSize="Body"
+                   FontAttributes="Bold"
+                   HorizontalOptions="Center"
+                   Margin="0,20,0,10" />
+            <CollectionView HeightRequest="200"
+                            SelectionMode="Single"
+                            ItemsSource="{Binding Player.Heroes}">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="cocModels:PlayerItemLevel">
+                        <HorizontalStackLayout>
+                            <Label Text="{Binding Name}"
+                                   Margin="10,0,0,0"
+                                   VerticalOptions="Center" />
+                            <Label Text="{Binding Level}"
+                                   Margin="10,0,0,0"
+                                   VerticalOptions="Center" />
+
+                        </HorizontalStackLayout>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+            <Label Text="装备:"
+                   FontSize="Body"
+                   FontAttributes="Bold"
+                   HorizontalOptions="Center"
+                   Margin="0,20,0,10" />
+            <CollectionView HeightRequest="200"
+                            SelectionMode="Single"
+                            ItemsSource="{Binding Player.HeroEquipment}">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="cocModels:PlayerItemLevel">
+                        <HorizontalStackLayout>
+                            <Label Text="{Binding Name}"
+                                   Margin="10,0,0,0"
+                                   VerticalOptions="Center" />
+                            <Label Text="{Binding Level}"
+                                   Margin="10,0,0,0"
+                                   VerticalOptions="Center" />
+
+                        </HorizontalStackLayout>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+            <Label Text="部队:"
+                   FontSize="Body"
+                   FontAttributes="Bold"
+                   HorizontalOptions="Center"
+                   Margin="0,20,0,10" />
+            <CollectionView HeightRequest="200"
+                            SelectionMode="Single"
+                            ItemsSource="{Binding Player.Troops}">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="cocModels:PlayerItemLevel">
+                        <HorizontalStackLayout>
+                            <Label Text="{Binding Name}"
+                                   Margin="10,0,0,0"
+                                   VerticalOptions="Center" />
+                            <Label Text="{Binding Level}"
+                                   Margin="10,0,0,0"
+                                   VerticalOptions="Center" />
+
+                        </HorizontalStackLayout>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+            <Label Text="法术:"
+                   FontSize="Body"
+                   FontAttributes="Bold"
+                   HorizontalOptions="Center"
+                   Margin="0,20,0,10" />
+            <CollectionView HeightRequest="200"
+                            SelectionMode="Single"
+                            ItemsSource="{Binding Player.Spells}">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="cocModels:PlayerItemLevel">
+                        <HorizontalStackLayout>
+                            <Label Text="{Binding Name}"
+                                   Margin="10,0,0,0"
+                                   VerticalOptions="Center" />
+                            <Label Text="{Binding Level}"
+                                   Margin="10,0,0,0"
+                                   VerticalOptions="Center" />
+
+                        </HorizontalStackLayout>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

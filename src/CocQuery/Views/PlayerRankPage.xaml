@@ -2,8 +2,91 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="CocQuery.Views.PlayerRankPage"
+             xmlns:cocModels="clr-namespace:CocQuery.Models.Coc"
+             xmlns:viewModels="clr-namespace:CocQuery.ViewModels"
+             xmlns:mi="http://www.aathifmahir.com/dotnet/2022/maui/icons"
              Title="PlayerRankPage">
-    <VerticalStackLayout>
-        
-    </VerticalStackLayout>
+    <ContentPage.BindingContext>
+        <viewModels:PlayerRankViewModel />
+    </ContentPage.BindingContext>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <ActivityIndicator x:Name="activityIndicator"
+                           IsRunning="{Binding ActivityIndicatorIsRunning}"
+                           IsVisible="{Binding ActivityIndicatorIsVisible,FallbackValue=False}"
+                           Color="Gray"
+                           HorizontalOptions="Center"
+                           VerticalOptions="Center" />
+        <HorizontalStackLayout Grid.Row="1">
+            <Picker Title="玩家位置"
+                    Grid.Row="1"
+                    HorizontalOptions="Start"
+                    ItemsSource="{Binding Locations}"
+                    SelectedItem="{Binding SelectedLocation}"
+                    ItemDisplayBinding="{Binding DisplayName}" />
+            <Button Text="刷新"
+                    HorizontalOptions="End"
+                    Command="{Binding SearchCommand}" />
+        </HorizontalStackLayout>
+        <RefreshView Grid.Row="2">
+            <CollectionView ItemsSource="{Binding Players}"
+                            SelectionMode="Single"
+                            SelectionChanged="CollectionView_SelectionChanged">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="cocModels:PlayerRanking">
+                        <HorizontalStackLayout Padding="10">
+                            <Label Text="{Binding Rank}"
+                                   FontSize="Micro"
+                                   Margin="0,0,10,0"
+                                   VerticalOptions="Center"
+                                   FontAttributes="Bold" />
+                            <Image Source="{Binding League.IconUrls.Medium}"
+                                   Margin="0,0,10,0"
+                                   WidthRequest="30"
+                                   HeightRequest="30" />
+                            <Label Text="{Binding Name}"
+                                   Margin="0,0,10,0"
+                                   FontAttributes="None"
+                                   VerticalOptions="Center" />
+                            <Label Text="奖杯:"
+                                   Margin="0,0,0,0"
+                                   FontAttributes="None"
+                                   VerticalOptions="Center" />
+                            <Label Text="{Binding Trophies}"
+                                   Margin="0,0,10,0"
+                                   FontAttributes="None"
+                                   VerticalOptions="Center" />
+                            <Label Text="LV:"
+                                   Margin="0,0,0,0"
+                                   FontAttributes="None"
+                                   VerticalOptions="Center" />
+                            <Label Text="{Binding ExpLevel}"
+                                   Margin="0,0,10,0"
+                                   FontAttributes="None"
+                                   VerticalOptions="Center" />
+                            <Label Text="部落:"
+                                   Margin="0,0,0,0"
+                                   FontAttributes="None"
+                                   VerticalOptions="Center" />
+                            <Label Text="{Binding Clan.Name}"
+                                   Margin="0,0,10,0"
+                                   FontAttributes="None"
+                                   VerticalOptions="Center" />
+                            <Label Text="Tag:"
+                                   Margin="0,0,0,0"
+                                   FontAttributes="None"
+                                   VerticalOptions="Center" />
+                            <Label Text="{Binding Tag}"
+                                   FontAttributes="None"
+                                   VerticalOptions="Center" />
+                        </HorizontalStackLayout>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </RefreshView>
+    </Grid>
 </ContentPage>

@@ -1,4 +1,5 @@
-﻿using CocQuery.Services.Coc;
+﻿using CocQuery.Models.Coc;
+using CocQuery.Services.Coc;
 using RestSharp;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
@@ -13,25 +14,85 @@ namespace CocQuery.ViewModels
             SearchCommand = new AsyncRelayCommand(Search);
             _players = new ObservableCollection<Models.Coc.Player>();
         }
-
-        private async Task Search(object arg)
+        public async Task OnItemClicked(Player player)
         {
-            if (_searchText.StartsWith("#"))
+            try
             {
-                HttpRestClient client = new HttpRestClient();
-                var request = new BaseRequest()
+                ActivityIndicatorIsRunning = true;
+                ActivityIndicatorIsVisible = true;
+                if (player != null)
                 {
-                    Uri = $"players/{_searchText}",
-                };
-                var player = await client.RequestAsync<Services.Coc.BaseResponseResult<Models.Coc.Player>>(request);
-                if (player.Data != null)
-                {
-                    Players.Clear();
-                    Players.Add(player.Data);
+
+                    // 跳转到详细页面
+                    await Application.Current.MainPage.Navigation.PushAsync(new Views.PlayerDetailPage(player));
                 }
             }
-        }
+            catch (Exception e)
+            {
+#if DEBUG
+                throw e;
+#endif
+            }
+            finally
+            {
 
+                ActivityIndicatorIsRunning = false;
+                ActivityIndicatorIsVisible = false;
+            }
+        }
+        private async Task Search(object arg)
+        {
+            try
+            {
+                ActivityIndicatorIsRunning = true;
+                ActivityIndicatorIsVisible = true;
+                if (_searchText.StartsWith("#"))
+                {
+                    HttpRestClient client = new HttpRestClient();
+                    var request = new BaseRequest()
+                    {
+                        Uri = $"players/{_searchText}",
+                    };
+                    var player = await client.RequestAsync<Services.Coc.BaseResponseResult<Models.Coc.Player>>(request);
+                    if (player != null && player.Data != null)
+                    {
+                        Players.Clear();
+                        Players.Add(player.Data);
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+#if DEBUG
+                throw e;
+#endif
+            }
+            finally
+            {
+                ActivityIndicatorIsRunning = false;
+                ActivityIndicatorIsVisible = false;
+            }
+        }
+        private bool activityIndicatorIsRunning = false;
+        public bool ActivityIndicatorIsRunning
+        {
+            get { return activityIndicatorIsRunning; }
+            set
+            {
+                activityIndicatorIsRunning = value;
+                OnPropertyChanged(nameof(ActivityIndicatorIsRunning));
+            }
+        }
+        private bool activityIndicatorIsVisible = false;
+        public bool ActivityIndicatorIsVisible
+        {
+            get { return activityIndicatorIsVisible; }
+            set
+            {
+                activityIndicatorIsVisible = value;
+                OnPropertyChanged(nameof(ActivityIndicatorIsVisible));
+            }
+        }
         private ObservableCollection<Models.Coc.Player> _players;
         public ObservableCollection<Models.Coc.Player> Players
         {

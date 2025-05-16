@@ -5,16 +5,15 @@ using System.Windows.Input;
 
 namespace CocQuery.ViewModels
 {
-    public class ClanRankViewModel : INotifyPropertyChanged
+    public class PlayerRankViewModel : INotifyPropertyChanged
     {
-        public ClanRankViewModel()
+        public PlayerRankViewModel()
         {
             SearchCommand = new AsyncRelayCommand(Search);
-            RefreshCommand = new AsyncRelayCommand(Refresh);
-            _clans = new ClanRankingList();
+            _palyers = new PlayerRankingList();
 
+            _ = Search(new object());
 
-            _ = Refresh(null);
             Locations = new ObservableCollection<Location>()
             {
                 new Location { DisplayName = "全球范围", Value = "32000006" },
@@ -24,27 +23,20 @@ namespace CocQuery.ViewModels
 
             };
         }
-
-        private async Task Refresh(object arg)
-        {
-            IsRefreshing = false;
-            await Search(null);
-        }
-
-        public async Task OnItemClicked(ClanRanking clan)
+        public async Task OnItemClicked(PlayerRanking player)
         {
             try
             {
                 ActivityIndicatorIsRunning = true;
                 ActivityIndicatorIsVisible = true;
-                if (clan != null)
+                if (player != null)
                 {
-                    Services.Coc.ClansService clansService = new Services.Coc.ClansService();
+                    Services.Coc.PlayersService playersService = new Services.Coc.PlayersService();
 
-                    var responseResult = await clansService.GetClanAsync(clan.Tag);
-                    Clan clan1 = responseResult.Data;
+                    var responseResult = await playersService.GetPlayerAsync(player.Tag);
+                    Player player1 = responseResult.Data;
                     // 跳转到详细页面
-                    await Application.Current.MainPage.Navigation.PushAsync(new Views.ClanDetailPage(clan1));
+                    await Application.Current.MainPage.Navigation.PushAsync(new Views.PlayerDetailPage(player1));
                 }
             }
             catch (Exception e)
@@ -64,15 +56,13 @@ namespace CocQuery.ViewModels
         {
             try
             {
-
                 ActivityIndicatorIsRunning = true;
                 ActivityIndicatorIsVisible = true;
-
                 /*
                 Services.Coc.LocationsService locationsService = new Services.Coc.LocationsService();
                 #region 过滤条件
-                int locationId = 32000006;
-                int? limit = 200;
+                int locationId = 32000056;
+                int? limit = 100;
                 string? after = null;
                 string? before = null;
                 if (SelectedLocation != null)
@@ -80,21 +70,22 @@ namespace CocQuery.ViewModels
                     locationId = int.Parse(SelectedLocation.Value);
                 }
                 #endregion
-                var responseResult = await locationsService.GetClanRankingAsync(locationId, limit, after, before);
+                var responseResult = await locationsService.GetPlayerRankingAsync(locationId, limit, after, before);
 
                 if (responseResult != null && responseResult.Data != null && responseResult.Data.Items != null)
                 {
-                    Clans = responseResult.Data.Items;
+                    Players = responseResult.Data.Items;
                 }
                 */
-                int locationId = 32000006;
+
+                int locationId = 32000056;
                 if (SelectedLocation != null)
                 {
                     locationId = int.Parse(SelectedLocation.Value);
                 }
-                Services.Cache.PersistentCacheService_ClanRank cacheService = new Services.Cache.PersistentCacheService_ClanRank(locationId.ToString());
+                Services.Cache.PersistentCacheService_PlayerRank cacheService = new Services.Cache.PersistentCacheService_PlayerRank(locationId.ToString());
                 var cacheData = await cacheService.GetCollection();
-                Clans = cacheData;
+                Players = cacheData;
             }
             catch (Exception e)
             {
@@ -104,37 +95,22 @@ namespace CocQuery.ViewModels
             }
             finally
             {
-                IsRefreshing = false;
                 ActivityIndicatorIsRunning = false;
                 ActivityIndicatorIsVisible = false;
             }
         }
 
-        private ClanRankingList _clans;
-        public ClanRankingList Clans
+        private PlayerRankingList _palyers;
+        public PlayerRankingList Players
         {
             get
             {
-                return _clans;
+                return _palyers;
             }
             set
             {
-                _clans = value;
-                OnPropertyChanged(nameof(Clans));
-            }
-        }
-
-        private bool _isRefreshing;
-        public bool IsRefreshing
-        {
-            get
-            {
-                return _isRefreshing;
-            }
-            set
-            {
-                _isRefreshing = value;
-                OnPropertyChanged(nameof(IsRefreshing));
+                _palyers = value;
+                OnPropertyChanged(nameof(Players));
             }
         }
 
@@ -186,8 +162,6 @@ namespace CocQuery.ViewModels
         }
         #endregion
         public ICommand SearchCommand { get; private set; }
-
-        public ICommand RefreshCommand { get; private set; }
 
         #region INotifyPropertyChanged
         public event PropertyChangedEventHandler? PropertyChanged;

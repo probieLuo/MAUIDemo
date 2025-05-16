@@ -2,15 +2,32 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="CocQuery.Views.SettingsPage"
+             xmlns:viewModels="clr-namespace:CocQuery.ViewModels"
              Title="SettingsPage">
-    <VerticalStackLayout>
-        
-        <Label 
-            Text="账号设置"
-            Margin="5"
-            FontSize="Header"
-            FontAttributes="Bold"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
+    <ContentPage.BindingContext>
+        <viewModels:SettingsViewModel />
+    </ContentPage.BindingContext>
+        <VerticalStackLayout>
+
+        <Label Text="账号设置"
+               Margin="5"
+               FontSize="Header"
+               FontAttributes="Bold"
+               VerticalOptions="Center"
+               HorizontalOptions="Start" />
+        <Label Text="正在开发中..."
+               VerticalOptions="Center"
+               HorizontalOptions="Center" />
+
+        <Label Text="系统设置"
+               Margin="5"
+               FontSize="Header"
+               FontAttributes="Bold"
+               VerticalOptions="Center"
+               HorizontalOptions="Start" />
+        <Button Text="清除缓存"
+                Clicked="Button_Clicked"
+                VerticalOptions="Center"
+                HorizontalOptions="Start" />
     </VerticalStackLayout>
 </ContentPage>

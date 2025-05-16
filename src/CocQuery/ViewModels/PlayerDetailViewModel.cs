@@ -1,31 +1,38 @@
 ﻿using CocQuery.Models.Coc;
+using System;
+using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace CocQuery.ViewModels
 {
-    public class ClanDetailViewModel: INotifyPropertyChanged
+    public class PlayerDetailViewModel : INotifyPropertyChanged
     {
-        public ClanDetailViewModel(Clan clan)
+        public PlayerDetailViewModel(Player player)
         {
-            Clan = clan;
+            Player = player;
         }
 
-        private Clan _clan;
-        public Clan Clan
+        private Player _player;
+        public Player Player
         {
             get
             {
-                return _clan;
+                return _player;
             }
             set
             {
-                if (_clan != value)
+                if (_player != value)
                 {
-                    _clan = value;
-                    OnPropertyChanged(nameof(Clan));
+                    _player = value;
+                    OnPropertyChanged(nameof(Player));
                 }
             }
         }
+        
+
 
         #region INotifyPropertyChanged
         public event PropertyChangedEventHandler? PropertyChanged;
@@ -36,20 +43,21 @@ namespace CocQuery.ViewModels
 
 
         #endregion
-        internal async Task OnItemClicked(ClanMember clanMember)
+
+        internal async Task OnItemClicked(PlayerClan? clan)
         {
             try
             {
                 ActivityIndicatorIsRunning = true;
                 ActivityIndicatorIsVisible = true;
-                if (clanMember != null)
+                if (clan != null)
                 {
-                    Services.Coc.PlayersService playersService = new Services.Coc.PlayersService();
+                    Services.Coc.ClansService clansService = new Services.Coc.ClansService();
 
-                    var responseResult = await playersService.GetPlayerAsync(clanMember.Tag);
-                    Player player1 = responseResult.Data;
+                    var responseResult = await clansService.GetClanAsync(clan.Tag);
+                    Clan clan1 = responseResult.Data;
                     // 跳转到详细页面
-                    await Application.Current.MainPage.Navigation.PushAsync(new Views.PlayerDetailPage(player1));
+                    await Application.Current.MainPage.Navigation.PushAsync(new Views.ClanDetailPage(clan1));
                 }
             }
             catch (Exception e)

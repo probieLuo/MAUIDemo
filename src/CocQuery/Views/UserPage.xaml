@@ -8,6 +8,9 @@
                Margin="5"
                VerticalOptions="Center"
                HorizontalOptions="Start" />
+        <Label Text="正在开发中..."
+               VerticalOptions="Center"
+               HorizontalOptions="Center" />
         <ListView HeightRequest="200">
             
         </ListView>
@@ -15,6 +18,9 @@
                Margin="5"
                VerticalOptions="Center"
                HorizontalOptions="Start" />
+        <Label Text="正在开发中..."
+               VerticalOptions="Center"
+               HorizontalOptions="Center" />
         <ListView HeightRequest="200">
 
         </ListView>

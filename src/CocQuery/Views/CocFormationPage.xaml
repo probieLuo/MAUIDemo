@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="CocQuery.Views.CocFormationPage"
+             xmlns:viewModels="clr-namespace:CocQuery.ViewModels"
+             Title="CocFormationPage">
+    <ContentPage.BindingContext>
+        <viewModels:CocFormationViewModel />
+    </ContentPage.BindingContext>
+    <StackLayout>
+        <CollectionView ItemsSource="{Binding FormationImages}"
+                        ItemsLayout="VerticalGrid, 3">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Grid Padding="10">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <Image 
+                               Source="{Binding ImageUrl}"
+                               Aspect="AspectFill"
+                               HeightRequest="60"
+                               WidthRequest="60" />
+                        <Label Grid.Row="1"
+                               Text="{Binding Name}"
+                               FontAttributes="Bold"
+                               HorizontalOptions="Center"
+                               VerticalOptions="Center"/>
+                    </Grid>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </StackLayout>
+</ContentPage>

@@ -32,7 +32,7 @@
             </Grid.RowDefinitions>
             <SearchBar IsVisible="True"
                        Margin="0,0,10,0"
-                       Placeholder="Search clan..."
+                       Placeholder="键入名称或Tag搜索部落..."
                        Text="{Binding SearchText}"
                        SearchCommand="{Binding SearchCommand}" />
             <Button  Text="⇊"
@@ -49,43 +49,35 @@
                     <RowDefinition Height="auto" />
                     <RowDefinition Height="auto" />
                 </Grid.RowDefinitions>
-                <HorizontalStackLayout>
+                <StackLayout Orientation="Horizontal">
                     <Label Text="部落位置:"
-                           VerticalOptions="Center" />
+                           VerticalOptions="Center"
+                           HorizontalOptions="Start"/>
                     <Picker Title="部落位置"
                             HorizontalOptions="End"
                             ItemsSource="{Binding Locations}"
                             SelectedItem="{Binding SelectedLocation}"
                             ItemDisplayBinding="{Binding DisplayName}" />
-                </HorizontalStackLayout>
-                <HorizontalStackLayout Grid.Row="1">
+                </StackLayout>
+                <StackLayout Grid.Row="1"
+                             Orientation="Horizontal">
                     <Label Text="对战频率:"
-                           VerticalOptions="Center" />
+                           VerticalOptions="Center" 
+                           HorizontalOptions="Start"/>
                     <Picker   Title="对战频率"
                               HorizontalOptions="End"
                               ItemsSource="{Binding WarFrequencys}"
                               SelectedItem="{Binding SelectedWarFrequency}"
-                              ItemDisplayBinding="{Binding DisplayName}">
-                        <!--<Picker.ItemsSource>
-                            <x:Array Type="{x:Type x:String}">
-                                <x:String>始终</x:String>
-                                <x:String>从不</x:String>
-                                <x:String>一周两次</x:String>
-                                <x:String>一周一次</x:String>
-                                <x:String>很少</x:String>
-                                <x:String>任何</x:String>
-                            </x:Array>
-                        </Picker.ItemsSource>-->
-                    </Picker>
-                </HorizontalStackLayout>
+                              ItemDisplayBinding="{Binding DisplayName}" />
+                </StackLayout>
                 <HorizontalStackLayout Grid.Row="2">
                     <Label Text="成员:"
-                           VerticalOptions="Center" />
-                    <Label Text="1"
+                           HorizontalOptions="Start" />
+                    <Entry Text="1"
                            HorizontalOptions="End" />
                     <Label Text="至"
                            HorizontalOptions="End" />
-                    <Label Text="50"
+                    <Entry Text="50"
                            HorizontalOptions="End" />
                 </HorizontalStackLayout>
             </Grid>

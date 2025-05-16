@@ -8,92 +8,133 @@
              Opacity="0.9"
              Title="PlayerSearchPage">
     <ContentPage.BindingContext>
-        <viewModels:PlayerSearchViewModel/>
+        <viewModels:PlayerSearchViewModel />
     </ContentPage.BindingContext>
     <ContentPage.Resources>
         <ResourceDictionary>
-            <converters:TownHallImageMultiConverter x:Key="townHallImageMultiConverter"/>
-            <converters:PlayerLeagueIconUrlsNullToDefaultImageConverter x:Key="playerLeagueIconUrlsNullToDefaultImageConverter" />
+            <converters:TownHallImageMultiConverter x:Key="townHallImageMultiConverter" />
         </ResourceDictionary>
     </ContentPage.Resources>
-    <VerticalStackLayout>
-        <SearchBar Placeholder="Search player..."
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <ActivityIndicator x:Name="activityIndicator"
+                           IsRunning="{Binding ActivityIndicatorIsRunning}"
+                           IsVisible="{Binding ActivityIndicatorIsVisible}"
+                           Color="Gray"
+                           HorizontalOptions="Center"
+                           VerticalOptions="Center" />
+        <SearchBar Grid.Row="1"
+                   Placeholder="键入Tag搜索玩家..."
                    Text="{Binding SearchText}"
-                   SearchCommand="{Binding SearchCommand}"/>
-        <ListView Margin="20" ItemsSource="{Binding Players}" VerticalOptions="Center" HasUnevenRows="True" VerticalScrollBarVisibility="Never">
+                   SearchCommand="{Binding SearchCommand}" />
+        <ListView Margin="20"
+                  Grid.Row="2"
+                  ItemsSource="{Binding Players}"
+                  VerticalOptions="Center"
+                  HasUnevenRows="True"
+                  VerticalScrollBarVisibility="Never"
+                  ItemTapped="OnItemTapped">
             <ListView.ItemTemplate>
                 <DataTemplate x:DataType="cocModels:Player">
                     <ViewCell>
                         <Grid Margin="10">
                             <Grid.RowDefinitions>
-                                <RowDefinition Height="auto"/>
-                                <RowDefinition Height="auto"/>
-                                <RowDefinition Height="auto"/>
+                                <RowDefinition Height="auto" />
+                                <RowDefinition Height="auto" />
+                                <RowDefinition Height="auto" />
                             </Grid.RowDefinitions>
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="Auto"/>
-                                <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
                             </Grid.ColumnDefinitions>
-                            <Image Source="{Binding League.IconUrls.Medium,FallbackValue=unranked.png,Converter={StaticResource playerLeagueIconUrlsNullToDefaultImageConverter}}"
+                            <Image Source="{Binding League.IconUrls.Medium,FallbackValue=unranked.png}"
                                    WidthRequest="50"
                                    HeightRequest="50"
                                    Margin="0,0,10,0"
                                    Aspect="AspectFill"
-                                   Grid.RowSpan="3"/>
-                            <Label Text="{Binding Name}" Grid.Column="1" FontAttributes="Bold" FontSize="Body"/>
-                            <Label Text="{Binding Tag}" Grid.Column="2" FontSize="Small"/>
-                            <HorizontalStackLayout Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="1" Margin="0,5,0,0">
+                                   Grid.RowSpan="3" />
+                            <Label Text="{Binding Name}"
+                                   Grid.Column="1"
+                                   FontAttributes="Bold"
+                                   FontSize="Body" />
+                            <Label Text="{Binding Tag}"
+                                   Grid.Column="2"
+                                   FontSize="Small" />
+                            <HorizontalStackLayout Grid.Column="1"
+                                                   Grid.ColumnSpan="2"
+                                                   Grid.Row="1"
+                                                   Margin="0,5,0,0">
                                 <Image Source="{Binding Clan.BadgeUrls.Small}"
                                        WidthRequest="30"
                                        HeightRequest="30"
                                        Aspect="AspectFill"
-                                       VerticalOptions="Center"/>
-                                <Label Text="{Binding Clan.Name}" VerticalOptions="Center"/>
+                                       VerticalOptions="Center" />
+                                <Label Text="{Binding Clan.Name}"
+                                       VerticalOptions="Center" />
                             </HorizontalStackLayout>
-                            <HorizontalStackLayout Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="2" Margin="0,5,0,0">
-                                <!--<Image Source="town_hall17_5a.webp"
-                                       WidthRequest="30" 
+                            <HorizontalStackLayout Grid.Column="1"
+                                                   Grid.ColumnSpan="2"
+                                                   Grid.Row="2"
+                                                   Margin="0,5,0,0">
+                                <Image WidthRequest="30"
                                        HeightRequest="30"
-                                       Aspect="AspectFill" VerticalOptions="Center"/>-->
-                                <Image WidthRequest="30"  HeightRequest="30" Aspect="AspectFill"  VerticalOptions="Center">
+                                       Aspect="AspectFill"
+                                       VerticalOptions="Center">
                                     <Image.Source>
                                         <MultiBinding Converter="{StaticResource townHallImageMultiConverter}">
-                                            <Binding Path="TownHallLevel"/>
-                                            <Binding Path="TownHallWeaponLevel"/>
+                                            <Binding Path="TownHallLevel" />
+                                            <Binding Path="TownHallWeaponLevel" />
                                         </MultiBinding>
                                     </Image.Source>
                                 </Image>
-                                <Label x:Name="TownHallLevel" Text="{Binding TownHallLevel}" VerticalOptions="Center"  Margin="0,0,10,0"/>
-                                <Label x:Name="TownHallWeaponLevel" Text="{Binding TownHallWeaponLevel}" VerticalOptions="Center"  Margin="0,0,10,0" IsVisible="Collapse"/>
-                                <!--<Image Source="town_hall17_5a.webp"
-                                       WidthRequest="30" 
+                                <Label x:Name="TownHallLevel"
+                                       Text="{Binding TownHallLevel}"
+                                       VerticalOptions="Center"
+                                       Margin="0,0,10,0" />
+                                <Label x:Name="TownHallWeaponLevel"
+                                       Text="{Binding TownHallWeaponLevel}"
+                                       VerticalOptions="Center"
+                                       Margin="0,0,10,0"
+                                       IsVisible="Collapse" />
+                                <Image WidthRequest="30"
                                        HeightRequest="30"
-                                       Aspect="AspectFill" VerticalOptions="Center"/>-->
-                                <Image WidthRequest="30"  HeightRequest="30" Aspect="AspectFill"  VerticalOptions="Center">
+                                       Aspect="AspectFill"
+                                       VerticalOptions="Center">
                                     <Image.Source>
                                         <MultiBinding Converter="{StaticResource townHallImageMultiConverter}">
-                                            <Binding Path="TownHallLevel"/>
-                                            <Binding Path="TownHallWeaponLevel"/>
+                                            <Binding Path="TownHallLevel" />
+                                            <Binding Path="TownHallWeaponLevel" />
                                         </MultiBinding>
                                     </Image.Source>
                                 </Image>
-                                <Label Text="{Binding BuilderHallLevel}" VerticalOptions="Center" Margin="0,0,10,0"/>
+                                <Label Text="{Binding BuilderHallLevel}"
+                                       VerticalOptions="Center"
+                                       Margin="0,0,10,0" />
                                 <Image Source="trophyurl.webp"
-                                       WidthRequest="30" 
+                                       WidthRequest="30"
                                        HeightRequest="30"
-                                       Aspect="AspectFill" VerticalOptions="Center"/>
-                                <Label Text="{Binding Trophies}" VerticalOptions="Center" Margin="0,0,10,0"/>
+                                       Aspect="AspectFill"
+                                       VerticalOptions="Center" />
+                                <Label Text="{Binding Trophies}"
+                                       VerticalOptions="Center"
+                                       Margin="0,0,10,0" />
                                 <Image Source="legendtrophyurl.png"
                                        WidthRequest="30"
                                        HeightRequest="30"
-                                       Aspect="AspectFill" VerticalOptions="Center"/>
-                                <Label Text="{Binding LegendStatistics.LegendTrophies}" VerticalOptions="Center"/>
+                                       Aspect="AspectFill"
+                                       VerticalOptions="Center" />
+                                <Label Text="{Binding LegendStatistics.LegendTrophies}"
+                                       VerticalOptions="Center" />
                             </HorizontalStackLayout>
                         </Grid>
                     </ViewCell>
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
-    </VerticalStackLayout>
+    </Grid>
 </ContentPage>

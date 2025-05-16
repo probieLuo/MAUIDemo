@@ -11,17 +11,24 @@
     Title="CocQuery">
 
     <TabBar>
-        <Tab Icon="{mi:Material Icon=LineAxis}" Title="Rank">
+        <Tab Icon="{mi:Material Icon=LineAxis}" Title="排名">
             <ShellContent Title="玩家" ContentTemplate="{DataTemplate views:PlayerRankPage}" />
             <ShellContent Title="部落" ContentTemplate="{DataTemplate views:ClanRankPage}" />
         </Tab>
-        <Tab Icon="{mi:Material Icon=Search}" Title="Search">
+        <Tab Icon="{mi:Material Icon=Search}" Title="搜索">
             <ShellContent Title="玩家" Icon="{mi:Material Icon=Usb}"
                           ContentTemplate="{DataTemplate views:PlayerSearchPage}" />
             <ShellContent Title="部落"
                           ContentTemplate="{DataTemplate views:ClanSearchPage}" />
         </Tab>
-        <Tab Icon="{mi:Fluent Icon=Person16}" Title="User">
+        <Tab Icon="{mi:Fluent Icon=Chat12}"
+             Title="发布">
+            <ShellContent Title="部落招募"
+                          ContentTemplate="{DataTemplate views:ClanChatPage}" />
+            <ShellContent Title="阵型分享"
+                          ContentTemplate="{DataTemplate views:CocFormationPage}" />
+        </Tab>
+        <Tab Icon="{mi:Fluent Icon=Person16}" Title="用户">
             <ShellContent Title="我的" 
                           ContentTemplate="{DataTemplate views:UserPage}" />
             <ShellContent Title="设置"
