@@ -22,7 +22,11 @@
 ![](https://github.com/probieLuo/MAUIDemo/blob/main/resources/f002fcbfdcd321720edce5c169d2a3da.gif)  
 
 ## Notes
-笔记。  
+笔记app。  
 
-![](https://github.com/probieLuo/MAUIDemo/blob/main/resources/final-notelist-small.png)  
-![](https://github.com/probieLuo/MAUIDemo/blob/main/resources/final-note.png)
+学习地址[创建MAUI应用](https://learn.microsoft.com/zh-cn/dotnet/maui/tutorials/notes-app?view=net-maui-9.0)  
+
+![](https://github.com/probieLuo/MAUIDemo/blob/main/resources/final-notelist-small.png)     
+
+![](https://github.com/probieLuo/MAUIDemo/blob/main/resources/final-note.png)  
+
