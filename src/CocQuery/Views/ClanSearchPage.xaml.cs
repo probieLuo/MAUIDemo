@@ -14,11 +14,6 @@ public partial class ClanSearchPage : ContentPage
         if (e.Item is Models.Coc.Clan clan && BindingContext is ClanSearchViewModel viewModel)
         {
             await viewModel.OnItemClicked(clan);
-            //if (clan != null)
-            //{
-            //    // Ìø×ªµ½ÏêÏ¸Ò³Ãæ
-            //    await Application.Current.MainPage.Navigation.PushAsync(new Views.ClanDetailPage(clan));
-            //}
         }
     }
 }
