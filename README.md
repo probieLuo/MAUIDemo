@@ -1,5 +1,4 @@
 <p align="center">
-  <img alt="Files Logo" src="https://github.com/probieLuo/MaterialDemo/blob/master/resource/title.png?raw=true" width="300" />
   <h2 align="center">MaterialDemo</h2>
 </p>
 
