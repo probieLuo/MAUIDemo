@@ -32,7 +32,9 @@
                     HorizontalOptions="End"
                     Command="{Binding SearchCommand}" />
         </HorizontalStackLayout>
-        <RefreshView Grid.Row="2">
+        <RefreshView Grid.Row="2" 
+                     IsRefreshing="{Binding IsRefreshing}"
+                     Command="{Binding RefreshCommand}">
             <CollectionView ItemsSource="{Binding Players}"
                             SelectionMode="Single"
                             SelectionChanged="CollectionView_SelectionChanged">

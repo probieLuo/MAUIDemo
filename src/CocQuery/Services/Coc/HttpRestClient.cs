@@ -9,7 +9,7 @@ namespace CocQuery.Services.Coc
         RestClient client;
         public HttpRestClient()
         {
-            var address = new Uri("http://47.117.147.152:8081/");
+            var address = new Uri("http://60.205.5.227:8081/");
             client = new RestClient(address);
             client.AddDefaultHeader("ContentType", "application/json");
         }

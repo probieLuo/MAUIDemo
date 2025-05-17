@@ -9,6 +9,7 @@ namespace CocQuery.ViewModels
     {
         public PlayerRankViewModel()
         {
+            RefreshCommand = new AsyncRelayCommand(Refresh);
             SearchCommand = new AsyncRelayCommand(Search);
             _palyers = new PlayerRankingList();
 
@@ -22,6 +23,11 @@ namespace CocQuery.ViewModels
                 new Location { DisplayName = "亚洲", Value = "32000003" }
 
             };
+        }
+        private async Task Refresh(object arg)
+        {
+            IsRefreshing = false;
+            await Search(null);
         }
         public async Task OnItemClicked(PlayerRanking player)
         {
@@ -95,6 +101,7 @@ namespace CocQuery.ViewModels
             }
             finally
             {
+                IsRefreshing = false;
                 ActivityIndicatorIsRunning = false;
                 ActivityIndicatorIsVisible = false;
             }
@@ -170,5 +177,22 @@ namespace CocQuery.ViewModels
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
         #endregion
+
+
+        private bool _isRefreshing;
+        public bool IsRefreshing
+        {
+            get
+            {
+                return _isRefreshing;
+            }
+            set
+            {
+                _isRefreshing = value;
+                OnPropertyChanged(nameof(IsRefreshing));
+            }
+        }
+
+        public ICommand RefreshCommand { get; private set; }
     }
 }
